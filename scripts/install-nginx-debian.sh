@@ -30,7 +30,7 @@ fi
 CODENAME=$(lsb_release -cs)
 
 cat > /etc/apt/sources.list.d/nginx.list << 'EOF'
-de b [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] https://nginx.org/packages/$DISTRO $CODENAME nginx
+deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] https://nginx.org/packages/$DISTRO $CODENAME nginx
 EOF
 
 cat > /etc/apt/preferences.d/99nginx << 'EOF'
