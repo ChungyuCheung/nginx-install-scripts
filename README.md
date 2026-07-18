@@ -29,9 +29,9 @@ chmod +x install-nginx.sh
 sudo ./install-nginx.sh
 ```
 
-## 進階編譯安裝脚本（推薦）
+## 進階編譯安裝脚本（推薦 - v2 版本）
 
-如果你需要更多自訂化功能（例如自定義安裝目錄、選擇模組、升級與回滺），請使用進階脚本：
+新增 **GeoIP** 與 **Let's Encrypt SSL 自動申請並部署** 功能！
 
 ```bash
 wget https://raw.githubusercontent.com/ChungyuCheung/nginx-install-scripts/main/scripts/nginx-compile-advanced.sh -O nginx-advanced.sh
@@ -39,23 +39,27 @@ chmod +x nginx-advanced.sh
 sudo ./nginx-advanced.sh install
 ```
 
-### 進階脚本功能特點
+### v2 版本新增功能
 
-- 自動偵測作業系統與架構（支援 x86_64 和 ARM aarch64）
-- 交互式輸入安裝目錄（5秒倒數預設 `/apps/nginx`)
-- 可選擇安裝組件（健康監測、SSL+HTTP2、Gzip、Stream、RealIP 等）
-- 支援完整的安裝 / 卸載 / 升級 / 回滺 功能
-- 自動建立 systemd 服務與 nginx 用戶
-- 兇建備份機制（升級時自動備份現有版本）
+- **GeoIP 支援**：可選擇模組 6，自動下載 GeoLite2-Country.mmdb 資料庫
+- **Let's Encrypt SSL**：安裝後可自動申請憑證、部署 HTTPS、設定 HTTP 自動跳轉 HTTPS
+- 自動建立 acme.sh 自動續期
+- SSL vhost 範例檔已生成
+
+### 原有功能
+
+- 自動偵測作業系統與架構（x86_64 / ARM aarch64）
+- 交互式選擇安裝目錄（5秒倒數預設 /apps/nginx）
+- 可選擇健康監測、SSL+HTTP2、Gzip、Stream、RealIP、GeoIP
+- 完整的 install / upgrade / rollback / uninstall
+- 自動建立 systemd 服務
 
 ## 注意事項
 
-- 普通脚本會自動添加官方 Nginx 倉庫，以安裝最新穩定版本
-- 進階脚本使用編譯安裝（从源碼編譯），更適合需要自訂化的圴景
-- 安裝後，Nginx 會自動啟動並設定為開機自動
-- 可以使用 `nginx -v` 檢查版本
-- 如果需要自定義配置，請編輯 `/etc/nginx/nginx.conf` 或對應安裝目錄下的 `conf/nginx.conf`
-- 重新啟動： `sudo systemctl restart nginx`
+- 普通脚本使用官方倉庫，簡單快速
+- 進階脚本使用編譯安裝，適合自訂化需求
+- SSL 申請需要域名解析到正常 IP，且 80/443 端口可用
+- GeoIP 資料庫建議每月手動更新一次
 
 ## 貢獻
 
